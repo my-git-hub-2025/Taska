@@ -48,6 +48,16 @@ $activeNav = $activeNav ?? '';
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link <?= $activeNav === 'teachers' ? 'active' : '' ?>" href="<?= base_url('admin/teachers.php') ?>">
+                            <i class="fa-solid fa-chalkboard-teacher me-1"></i>Teachers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= $activeNav === 'parents' ? 'active' : '' ?>" href="<?= base_url('admin/parents.php') ?>">
+                            <i class="fa-solid fa-house-user me-1"></i>Parents
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link <?= $activeNav === 'taskas' ? 'active' : '' ?>" href="<?= base_url('admin/taskas.php') ?>">
                             <i class="fa-solid fa-house-chimney me-1"></i>Taskas
                         </a>

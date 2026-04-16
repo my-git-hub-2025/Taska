@@ -89,6 +89,12 @@ require_once __DIR__ . '/../includes/header.php';
                     <a href="<?= base_url('admin/users.php') ?>" class="btn btn-outline-secondary">
                         <i class="fa-solid fa-users me-2"></i>Manage Users
                     </a>
+                    <a href="<?= base_url('admin/teachers.php') ?>" class="btn btn-outline-success">
+                        <i class="fa-solid fa-chalkboard-teacher me-2"></i>Manage Teachers
+                    </a>
+                    <a href="<?= base_url('admin/parents.php') ?>" class="btn btn-outline-warning">
+                        <i class="fa-solid fa-house-user me-2"></i>Manage Parents
+                    </a>
                     <a href="<?= base_url('admin/children.php') ?>" class="btn btn-outline-info">
                         <i class="fa-solid fa-child me-2"></i>Manage Children
                     </a>
