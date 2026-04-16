@@ -7,18 +7,38 @@
 define('DATA_DIR', __DIR__ . '/../data/');
 
 /**
- * Read all records from a txt file.
+ * Validate that a database filename is safe (no path traversal).
+ */
+function db_validate_file(string $file): void {
+    if (basename($file) !== $file) {
+        throw new InvalidArgumentException('Invalid database file name: ' . $file);
+    }
+}
+
+/**
+ * Read all records from a txt file using a shared lock for consistency.
  */
 function db_read(string $file): array {
+    db_validate_file($file);
     $path = DATA_DIR . $file;
     if (!file_exists($path)) return [];
-    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $handle = fopen($path, 'r');
+    if ($handle === false) return [];
     $records = [];
-    foreach ($lines as $line) {
-        $obj = json_decode($line, true);
-        if ($obj !== null) {
-            $records[] = $obj;
+    if (flock($handle, LOCK_SH)) {
+        $content = stream_get_contents($handle);
+        flock($handle, LOCK_UN);
+        fclose($handle);
+        foreach (explode("\n", $content) as $line) {
+            $line = trim($line);
+            if ($line === '') continue;
+            $obj = json_decode($line, true);
+            if ($obj !== null) {
+                $records[] = $obj;
+            }
         }
+    } else {
+        fclose($handle);
     }
     return $records;
 }
@@ -27,6 +47,7 @@ function db_read(string $file): array {
  * Write all records to a txt file (overwrites).
  */
 function db_write(string $file, array $records): void {
+    db_validate_file($file);
     $path = DATA_DIR . $file;
     $lines = array_map('json_encode', $records);
     file_put_contents($path, implode("\n", $lines) . (count($lines) ? "\n" : ''), LOCK_EX);

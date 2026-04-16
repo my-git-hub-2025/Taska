@@ -50,8 +50,8 @@ $(function () {
 
     /* ── Notification polling (parent pages) ─────────────── */
     if ($('#notifCount').length) {
-        // Poll every 30s via fetch
-        setInterval(function () {
+        // Poll every 30s via fetch; stop on page unload to avoid stale intervals
+        var notifPollInterval = setInterval(function () {
             fetch(window.TASKA_BASE + 'api/notification_count.php')
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
@@ -64,6 +64,7 @@ $(function () {
                 })
                 .catch(function () {});
         }, 30000);
+        $(window).on('beforeunload', function () { clearInterval(notifPollInterval); });
     }
 
     /* ── Mark notification read on click ─────────────────── */

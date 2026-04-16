@@ -91,7 +91,8 @@ function register(string $name, string $email, string $password, string $role = 
  * Build an absolute URL path for redirect.
  */
 function base_url(string $path = ''): string {
-    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+              (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') ? 'https' : 'http';
     $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
     $base   = rtrim(dirname(dirname(__FILE__)), '/\\');
     // Determine the web root relative path

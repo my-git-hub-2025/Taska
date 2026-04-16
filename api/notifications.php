@@ -9,7 +9,7 @@ header('Content-Type: application/json');
 $user = current_user();
 if (!$user) {
     http_response_code(401);
-    echo json_encode(['error' => 'Unauthorised']);
+    echo json_encode(['error' => 'Unauthorized']);
     exit;
 }
 

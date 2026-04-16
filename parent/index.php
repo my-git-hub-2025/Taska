@@ -98,7 +98,13 @@ require_once __DIR__ . '/../includes/header.php';
                         $age   = '';
                         if (!empty($child['dob'])) {
                             $diff = (new DateTime($child['dob']))->diff(new DateTime());
-                            $age  = $diff->y > 0 ? $diff->y . 'y ' . $diff->m . 'm' : $diff->m . ' months';
+                            if ($diff->y > 0) {
+                                $age = $diff->y . 'y ' . $diff->m . 'm';
+                            } elseif ($diff->m > 0) {
+                                $age = $diff->m . 'm';
+                            } else {
+                                $age = $diff->d . 'd';
+                            }
                         }
                     ?>
                     <div class="d-flex align-items-center gap-3 mb-3 p-2 border rounded">

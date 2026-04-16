@@ -5,6 +5,26 @@
 require_once __DIR__ . '/../includes/auth.php';
 $user = require_role('teacher');
 
+// ── Configuration constants ──────────────────────────────────────────────
+define('UPLOAD_ALLOWED_EXT', ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'webm', 'avi']);
+define('UPLOAD_MAX_BYTES',   50 * 1024 * 1024); // 50 MB
+
+/**
+ * Determine which children need a notification for this post.
+ */
+function get_notify_children(string $childId, string $taskaId, array $taskaIds, array $allChildren): array {
+    if ($childId) {
+        $child = db_find('children.txt', 'id', $childId);
+        return $child ? [$child] : [];
+    }
+    return array_values(array_filter(
+        $allChildren,
+        fn($c) => $taskaId
+            ? ($c['taska_id'] ?? '') === $taskaId
+            : in_array($c['taska_id'] ?? '', $taskaIds, true)
+    ));
+}
+
 $message = '';
 $msgType = 'success';
 
@@ -40,18 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mediaFiles = [];
         if (!empty($_FILES['media']['name'][0])) {
             $uploadDir = __DIR__ . '/../uploads/';
-            $allowed   = ['jpg','jpeg','png','gif','mp4','mov','webm','avi'];
             foreach ($_FILES['media']['tmp_name'] as $i => $tmpName) {
                 if (!is_uploaded_file($tmpName)) continue;
                 $origName = $_FILES['media']['name'][$i];
                 $ext      = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
-                if (!in_array($ext, $allowed, true)) {
+                if (!in_array($ext, UPLOAD_ALLOWED_EXT, true)) {
                     $message = 'File type not allowed: ' . htmlspecialchars($ext);
                     $msgType = 'warning';
                     continue;
                 }
                 $size = $_FILES['media']['size'][$i];
-                if ($size > 50 * 1024 * 1024) { // 50 MB limit
+                if ($size > UPLOAD_MAX_BYTES) {
                     $message = 'File too large (max 50 MB): ' . htmlspecialchars($origName);
                     $msgType = 'warning';
                     continue;
@@ -73,11 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         // Create notifications for parents of children in this taska
-        $notifyChildren = $child_id
-            ? [db_find('children.txt', 'id', $child_id)]
-            : array_values(array_filter($allChildren, fn($c) =>
-                ($taska_id ? $c['taska_id'] === $taska_id : in_array($c['taska_id'] ?? '', $taskaIds, true))
-            ));
+        $notifyChildren  = get_notify_children($child_id, $taska_id, $taskaIds, $allChildren);
 
         $notifiedParents = [];
         foreach ($notifyChildren as $child) {
@@ -88,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'user_id' => $child['parent_id'],
                 'post_id' => $post['id'],
                 'message' => 'New update from ' . $user['name'] . ' in ' .
-                             (db_find('taskas.txt', 'id', $taska_id)['name'] ?? 'Taska') .
+                             ($taska_id ? (db_find('taskas.txt', 'id', $taska_id)['name'] ?? 'Taska') : 'Taska') .
                              ' – ' . ucfirst($category),
                 'is_read' => false,
             ]);
@@ -251,7 +266,7 @@ function filterChildren(taskaId) {
 }
 
 function updateCatBadge(val, cls, label) {
-    // just visual feedback handled by CSS
+    // visual feedback handled by CSS radio labels – no JS action needed
 }
 
 // Initial filter

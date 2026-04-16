@@ -98,7 +98,13 @@ require_once __DIR__ . '/../includes/header.php';
                         $born = new DateTime($child['dob']);
                         $now  = new DateTime();
                         $diff = $born->diff($now);
-                        $age  = $diff->y > 0 ? $diff->y . 'y ' . $diff->m . 'm' : $diff->m . ' months';
+                        if ($diff->y > 0) {
+                            $age = $diff->y . 'y ' . $diff->m . 'm';
+                        } elseif ($diff->m > 0) {
+                            $age = $diff->m . 'm';
+                        } else {
+                            $age = $diff->d . 'd';
+                        }
                     }
                 ?>
                 <tr>

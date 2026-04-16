@@ -89,7 +89,7 @@ document.querySelectorAll('.notif-item[data-id]').forEach(function(el) {
     el.addEventListener('click', function() {
         var id = this.dataset.id;
         this.classList.remove('unread');
-        fetch(window.location.origin + '<?= base_url("api/notifications.php") ?>', {
+        fetch('<?= base_url("api/notifications.php") ?>', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: 'action=mark_read&id=' + encodeURIComponent(id)
