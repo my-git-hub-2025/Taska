@@ -50,7 +50,7 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="container-xl">
-    <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="page-header-row d-flex align-items-center justify-content-between mb-3">
         <h4 class="section-heading mb-0"><i class="fa-solid fa-users me-2"></i>Manage Users</h4>
     </div>
 
