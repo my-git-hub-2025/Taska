@@ -80,8 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = 'You cannot delete your own account.';
             $msgType = 'danger';
         } elseif ($id) {
-            db_delete('users.txt', $id);
-            $message = 'Teacher deleted.';
+            $target = db_find('users.txt', 'id', $id);
+            if (!$target || ($target['role'] ?? '') !== 'teacher') {
+                $message = 'Teacher not found.';
+                $msgType = 'danger';
+            } else {
+                db_delete('users.txt', $id);
+                $message = 'Teacher deleted.';
+            }
         }
     }
 }
@@ -192,7 +198,7 @@ require_once __DIR__ . '/../includes/header.php';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-2"></i>Save</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
                 </div>
             </form>
         </div>
@@ -225,7 +231,7 @@ require_once __DIR__ . '/../includes/header.php';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-2"></i>Update</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk me-2"></i>Update</button>
                 </div>
             </form>
         </div>
