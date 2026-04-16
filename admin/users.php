@@ -62,7 +62,7 @@ require_once __DIR__ . '/../includes/header.php';
     <?php endif; ?>
 
     <!-- Search -->
-    <form method="GET" class="mb-3 d-flex gap-2">
+    <form method="GET" class="mb-3 d-flex gap-2 flex-wrap">
         <input type="text" name="q" class="form-control" placeholder="Search by name or email…"
                value="<?= htmlspecialchars($search) ?>">
         <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
