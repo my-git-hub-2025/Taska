@@ -48,7 +48,7 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="container-xl">
-    <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="page-header-row d-flex align-items-center justify-content-between mb-3">
         <h4 class="section-heading mb-0"><i class="fa-solid fa-list me-2"></i>My Posts</h4>
         <a href="<?= base_url('teacher/post.php') ?>" class="btn btn-primary">
             <i class="fa-solid fa-plus me-2"></i>New Post

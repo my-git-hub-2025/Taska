@@ -10,6 +10,10 @@ $activeNav = $activeNav ?? '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title><?= htmlspecialchars($pageTitle) ?> – Taska</title>
     <!-- Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -18,7 +22,7 @@ $activeNav = $activeNav ?? '';
     <!-- Custom styles -->
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
-<body>
+<body class="<?= isset($user['role']) ? 'role-' . htmlspecialchars($user['role']) : 'guest' ?>">
 
 <?php if (isset($user) && $user): ?>
 <!-- Top navigation bar -->

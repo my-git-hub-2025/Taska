@@ -50,7 +50,7 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="container-xl">
-    <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="page-header-row d-flex align-items-center justify-content-between mb-3">
         <h4 class="section-heading mb-0"><i class="fa-solid fa-users me-2"></i>Manage Users</h4>
     </div>
 
@@ -62,7 +62,7 @@ require_once __DIR__ . '/../includes/header.php';
     <?php endif; ?>
 
     <!-- Search -->
-    <form method="GET" class="mb-3 d-flex gap-2">
+    <form method="GET" class="mb-3 d-flex gap-2 flex-wrap">
         <input type="text" name="q" class="form-control" placeholder="Search by name or email…"
                value="<?= htmlspecialchars($search) ?>">
         <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>

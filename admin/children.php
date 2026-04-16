@@ -62,7 +62,7 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="container-xl">
-    <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="page-header-row d-flex align-items-center justify-content-between mb-3">
         <h4 class="section-heading mb-0"><i class="fa-solid fa-child me-2"></i>Manage Children</h4>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addChildModal">
             <i class="fa-solid fa-plus me-2"></i>Add Child
