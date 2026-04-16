@@ -1,0 +1,8 @@
+# Taska – Uploads directory protection
+Options -Indexes
+
+# Prevent execution of PHP scripts in uploads
+<FilesMatch "\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

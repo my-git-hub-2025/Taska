@@ -1,0 +1,185 @@
+/* ============================================================
+   Taska – Custom Styles
+   ============================================================ */
+
+:root {
+    --taska-primary: #0d6efd;
+    --taska-secondary: #6c757d;
+    --taska-success: #198754;
+    --taska-warning: #ffc107;
+    --taska-danger: #dc3545;
+    --taska-light: #f8f9fa;
+    --taska-card-radius: 1rem;
+}
+
+body {
+    background-color: #f0f4f8;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main.container-fluid {
+    flex: 1;
+}
+
+/* ── Auth pages ─────────────────────────────────────────── */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-card {
+    background: #fff;
+    border-radius: var(--taska-card-radius);
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 440px;
+}
+
+.auth-logo {
+    font-size: 2.5rem;
+    color: var(--taska-primary);
+}
+
+/* ── Avatar circle ──────────────────────────────────────── */
+.avatar-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* ── Dashboard stat cards ───────────────────────────────── */
+.stat-card {
+    border-radius: var(--taska-card-radius);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    transition: transform .2s, box-shadow .2s;
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+.stat-card .icon-box {
+    font-size: 2.4rem;
+    opacity: 0.85;
+}
+
+/* ── Post / Feed cards ──────────────────────────────────── */
+.post-card {
+    border-radius: var(--taska-card-radius);
+    border: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    transition: box-shadow .2s;
+}
+.post-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.post-category-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    border-radius: 30px;
+    padding: .25em .75em;
+}
+
+.post-media img,
+.post-media video {
+    max-width: 100%;
+    border-radius: .5rem;
+    margin-top: .75rem;
+}
+
+/* ── Category colours ───────────────────────────────────── */
+.cat-feed      { background: #fff3cd; color: #856404; }
+.cat-rest      { background: #d1ecf1; color: #0c5460; }
+.cat-nappy     { background: #f8d7da; color: #721c24; }
+.cat-hygiene   { background: #d4edda; color: #155724; }
+.cat-health    { background: #cce5ff; color: #004085; }
+.cat-other     { background: #e2e3e5; color: #383d41; }
+
+/* ── Notification item ──────────────────────────────────── */
+.notif-item {
+    border-left: 4px solid var(--taska-primary);
+    background: #fff;
+    border-radius: 0 .5rem .5rem 0;
+    margin-bottom: .75rem;
+    padding: .85rem 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: background .2s;
+}
+.notif-item.unread {
+    border-left-color: var(--taska-warning);
+    background: #fffdf0;
+}
+.notif-item .notif-time {
+    font-size: .78rem;
+    color: var(--taska-secondary);
+}
+
+/* ── Section headings ───────────────────────────────────── */
+.section-heading {
+    font-weight: 700;
+    color: #2d3748;
+    border-bottom: 3px solid var(--taska-primary);
+    padding-bottom: .3rem;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+}
+
+/* ── Media preview in upload form ───────────────────────── */
+#mediaPreview img,
+#mediaPreview video {
+    max-height: 200px;
+    border-radius: .5rem;
+    margin: .25rem;
+    border: 1px solid #dee2e6;
+}
+
+/* ── Sidebar layout for teacher/parent ─────────────────── */
+@media (min-width: 768px) {
+    .sidebar {
+        min-height: calc(100vh - 60px);
+        background: #fff;
+        border-right: 1px solid #e9ecef;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+    }
+}
+
+/* ── Table improvements ─────────────────────────────────── */
+.table-hover tbody tr:hover {
+    background-color: #f1f5ff;
+}
+
+/* ── Alert flash ────────────────────────────────────────── */
+.flash-alert {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 260px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border-radius: .5rem;
+    animation: slideIn .3s ease;
+}
+@keyframes slideIn {
+    from { transform: translateX(100px); opacity: 0; }
+    to   { transform: translateX(0);     opacity: 1; }
+}

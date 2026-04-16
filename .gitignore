@@ -1,0 +1,7 @@
+# Don't commit uploaded media files
+uploads/*
+!uploads/.gitkeep
+!uploads/.htaccess
+
+# Don't commit real data (txt db files have sample data committed)
+# data/*.txt  <- keep commented so sample data is included
